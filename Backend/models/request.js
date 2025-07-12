@@ -9,7 +9,7 @@ const requestSchema = new Schema(
             required: true,
         },
         pending: [{
-            from: {
+            receiver: {
                 type: Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
@@ -41,28 +41,20 @@ const requestSchema = new Schema(
                     }
                 }
             ],
+            isSent:{
+                type:Boolean,
+                required:true
+            },
             time: {
                 type: String,
                 required: true,
-                validate: {
-                    validator: function (v) {
-                        return Array.isArray(v) && v.length > 0;
-                    },
-                    message: 'Offers must be a non-empty array'
-                }
             }
         }],
         accepted: [{
-            from: {
+            receiver: {
                 type: Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
-                validate: {
-                    validator: function (v) {
-                        return Array.isArray(v) && v.length > 0;
-                    },
-                    message: 'Offers must be a non-empty array'
-                },
             },
             message: {
                 type: String,
@@ -92,28 +84,20 @@ const requestSchema = new Schema(
                     }
                 }
             ],
+            isSent:{
+                type:Boolean,
+                required:true
+            },
             time: {
                 type: String,
                 required: true,
-                validate: {
-                    validator: function (v) {
-                        return Array.isArray(v) && v.length > 0;
-                    },
-                    message: 'Offers must be a non-empty array'
-                }
             }
         }],
         rejected: [{
-            to: {
+            receiver: {
                 type: Schema.Types.ObjectId,
                 ref: "User",
                 required: true,
-                validate: {
-                    validator: function (v) {
-                        return Array.isArray(v) && v.length > 0;
-                    },
-                    message: 'Offers must be a non-empty array'
-                },
             },
             message: {
                 type: String,
@@ -142,15 +126,13 @@ const requestSchema = new Schema(
                     }
                 }
             ],
+            isSent:{
+                type:Boolean,
+                required:true
+            },
             time: {
                 type: String,
                 required: true,
-                validate: {
-                    validator: function (v) {
-                        return Array.isArray(v) && v.length > 0;
-                    },
-                    message: 'Offers must be a non-empty array'
-                }
             }
         }]
     }
