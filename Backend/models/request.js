@@ -19,6 +19,7 @@ const requestSchema = new Schema(
                 default: "",
             },
             offers:
+<<<<<<< HEAD
             {
                 type: String,
                 required: true,
@@ -32,6 +33,33 @@ const requestSchema = new Schema(
             isSent: {
                 type: Boolean,
                 required: true
+=======
+                [{
+                    type: String,
+                    required: true,
+                    validate: {
+                        validator: function (v) {
+                            return Array.isArray(v) && v.length > 0;
+                        },
+                        message: 'Offers must be a non-empty array'
+                    }
+                }],
+            wants: [
+                {
+                    type: String,
+                    required: true,
+                    validate: {
+                        validator: function (v) {
+                            return Array.isArray(v) && v.length > 0;
+                        },
+                        message: 'Offers must be a non-empty array'
+                    }
+                }
+            ],
+            isSent:{
+                type:Boolean,
+                required:true
+>>>>>>> d6d7f9f08ba8ad570f7e2d9fa492b83b83424ea5
             },
             time: {
                 type: String,
@@ -49,6 +77,7 @@ const requestSchema = new Schema(
                 default: "",
             },
             offers:
+<<<<<<< HEAD
             {
                 type: String,
                 required: true,
@@ -61,6 +90,34 @@ const requestSchema = new Schema(
             isSent: {
                 type: Boolean,
                 required: true
+=======
+                [{
+                    type: String,
+                    required: true,
+                    validate: {
+                        validator: function (v) {
+                            return Array.isArray(v) && v.length > 0;
+                        },
+                        message: 'Offers must be a non-empty array'
+                    }
+                }]
+            ,
+            wants: [
+                {
+                    type: String,
+                    required: true,
+                    validate: {
+                        validator: function (v) {
+                            return Array.isArray(v) && v.length > 0;
+                        },
+                        message: 'Offers must be a non-empty array'
+                    }
+                }
+            ],
+            isSent:{
+                type:Boolean,
+                required:true
+>>>>>>> d6d7f9f08ba8ad570f7e2d9fa492b83b83424ea5
             },
             time: {
                 type: String,
@@ -78,10 +135,23 @@ const requestSchema = new Schema(
                 default: "",
             },
             offers:
+<<<<<<< HEAD
             {
                 type: String,
                 required: true,
             },
+=======
+                [{
+                    type: String,
+                    required: true,
+                    validate: {
+                        validator: function (v) {
+                            return Array.isArray(v) && v.length > 0;
+                        },
+                        message: 'Offers must be a non-empty array'
+                    }
+                }],
+>>>>>>> d6d7f9f08ba8ad570f7e2d9fa492b83b83424ea5
             wants: [
                 {
                     type: String,
@@ -94,9 +164,15 @@ const requestSchema = new Schema(
                     }
                 }
             ],
+<<<<<<< HEAD
             isSent: {
                 type: Boolean,
                 required: true
+=======
+            isSent:{
+                type:Boolean,
+                required:true
+>>>>>>> d6d7f9f08ba8ad570f7e2d9fa492b83b83424ea5
             },
             time: {
                 type: String,
@@ -108,4 +184,8 @@ const requestSchema = new Schema(
 
 const Request = mongoose.model("Request", requestSchema);
 
+<<<<<<< HEAD
 module.exports = Request;
+=======
+module.exports = Request;
+>>>>>>> d6d7f9f08ba8ad570f7e2d9fa492b83b83424ea5
