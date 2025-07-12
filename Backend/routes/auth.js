@@ -60,4 +60,47 @@ router.get("/me", protect, (req, res) => {
   });
 });
 
+router.get("/profile", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching profile", error: err.message });
+  }
+});
+
+router.patch("/profile", protect, async (req, res) => {
+  const allowedUpdates = [
+    "coverImage",
+    "bio",
+    "skillsknown",
+    "skillsneeded",
+    "location",
+    "profiletype",
+  ];
+
+  const updates = {};
+  allowedUpdates.forEach((field) => {
+    if (req.body[field] !== undefined) {
+      updates[field] = req.body[field];
+    }
+  });
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: updates },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating profile", error: err.message });
+  }
+});
+
+
 module.exports = router;
