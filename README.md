@@ -30,9 +30,10 @@ request others in return.
 
 Mockup - (https://link.excalidraw.com/l/65VNwvy7c4X/8bM86GXnnUN)
 
-**TEAM NAME** : **_WebArchitect_**
+**TEAM NAME** : **_WebArchitects_**
 
 **_Team Members:_**
+
 1. Ayushman Singh
    E-mail - u24cs103@coed.svnit.ac.in
 2. Krishna Tahiliani
