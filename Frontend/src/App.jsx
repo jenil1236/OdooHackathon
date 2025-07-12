@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css'
@@ -22,5 +21,3 @@ function App() {
 }
 
 export default App
-
->>>>>>> d6d7f9f08ba8ad570f7e2d9fa492b83b83424ea5

@@ -60,14 +60,23 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    isOnline: {
-    type: Boolean,
-    default: false,
+    availability: {
+      type: String,
+      default: "weekends", // Example: "weekdays", "evenings", etc.
     },
     isBanned: {
       type: Boolean,
-      default: false,
-    }
+      default: false
+    },
+    ratings: [
+  {
+    from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // who rated
+    stars: { type: Number, min: 1, max: 5 },
+    comment: { type: String, default: '' }
+  }
+],
+averageRating: { type: Number, default: 0 }
+
 
   },
   {
@@ -88,5 +97,3 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
 };
 
 module.exports = mongoose.model('User', userSchema);
-
-
