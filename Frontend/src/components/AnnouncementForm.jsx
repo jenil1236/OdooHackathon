@@ -1,20 +1,45 @@
-import { useState, useRef } from "react";
-import "./AnnouncementForm.css"; // We'll create this CSS file
+import React, { useState } from "react";
+import "./AnnouncementForm.css";
 
 const AnnouncementForm = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [issuedBy, setIssuedBy] = useState("");
-  const [bodyError, setBodyError] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  // Add this handleSubmit function here ▼
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const isEmpty = !body || body.trim() === "";
-    setBodyError(isEmpty);
 
-    if (!isEmpty) {
-      console.log({ title, body, issued_by: issuedBy });
-      // Submit logic here
+    try {
+      const token = localStorage.getItem("token");
+      const response = await fetch(
+        "http://localhost:3000/routes/announcements",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title,
+            body,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to submit announcement");
+      }
+
+      const data = await response.json();
+      console.log("Announcement created:", data);
+      // Reset form
+      setTitle("");
+      setBody("");
+      setError(null);
+    } catch (error) {
+      console.error("Error submitting announcement:", error);
+      setError(error.message);
     }
   };
 
@@ -25,6 +50,7 @@ const AnnouncementForm = () => {
       </div>
       <div className="card-body">
         <form onSubmit={handleSubmit} className="announcement-form">
+          {/* Your existing form fields */}
           <div className="form-group">
             <label htmlFor="title">Title</label>
             <input
@@ -45,24 +71,10 @@ const AnnouncementForm = () => {
               value={body}
               onChange={(e) => setBody(e.target.value)}
               required
-              className={bodyError ? "is-invalid" : ""}
             />
-            {bodyError && (
-              <div className="error-message">Message is required.</div>
-            )}
           </div>
 
-          <div className="form-group">
-            <label htmlFor="issued_by">Issued by</label>
-            <input
-              id="issued_by"
-              type="text"
-              placeholder="Enter the issuer"
-              value={issuedBy}
-              onChange={(e) => setIssuedBy(e.target.value)}
-              required
-            />
-          </div>
+          {error && <div className="error-message">{error}</div>}
 
           <button type="submit" className="submit-btn">
             Create
@@ -74,4 +86,3 @@ const AnnouncementForm = () => {
 };
 
 export default AnnouncementForm;
-
