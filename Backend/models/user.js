@@ -63,6 +63,10 @@ const userSchema = new Schema(
     isOnline: {
     type: Boolean,
     default: false,
+    },
+    isBanned: {
+      type: Boolean,
+      default: false,
     }
 
   },

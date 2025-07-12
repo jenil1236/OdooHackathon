@@ -5,8 +5,8 @@ const passport = require("passport");
 dotenv.config();
 const { connectDB } = require("./config/db");
 const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin");
 const configurePassport = require("./config/passport");
-
 
 const PORT = process.env.PORT || 5000;
 
@@ -31,6 +31,7 @@ app.use(passport.session());
 
 // 💡 Routes
 app.use("/api/users", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 // 💡 DB connect and start server
 connectDB()
