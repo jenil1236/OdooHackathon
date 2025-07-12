@@ -1,24 +1,45 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require('cors');
+const dotenv = require("dotenv");
+const session = require("express-session");
+const passport = require("passport");
+dotenv.config();
+const { connectDB } = require("./config/db");
+const authRoutes = require("./routes/auth");
+const configurePassport = require("./config/passport");
+
+
+const PORT = process.env.PORT || 5000;
 
 const app = express();
-const port = 3000;
-
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-main()
-    .then(() => {
-        console.log("connected to database");
-    })
-    .catch(err => console.log(err));
+// 💡 SESSION middleware
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  }
+}));
 
-async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Timetable');
-}
+// 💡 PASSPORT initialization
+configurePassport(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.listen(port, () => {
-    console.log(`Server is listening at port ${port}`);
-})  
+// 💡 Routes
+app.use("/api/users", authRoutes);
+
+// 💡 DB connect and start server
+connectDB()
+  .then(() => {
+    console.log("Database connected successfully");
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Database connection failed:", error);
+  });
