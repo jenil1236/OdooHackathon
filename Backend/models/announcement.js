@@ -1,23 +1,15 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose"); // Add this line
+const { Schema } = mongoose;
 
-const announcemmentSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: String,
-    required: true,
-  },
-  body: {
-    type: String,
-    required: true,
-  },
+const announcementSchema = new Schema({
+  title: { type: String, required: true },
+  body: { type: String, required: true },
   issued_by: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
+  created_at: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model("Announcement", announcemmentSchema);
+module.exports = mongoose.model("Announcement", announcementSchema);
