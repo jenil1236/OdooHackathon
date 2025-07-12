@@ -1,6 +1,6 @@
 # OdooHackathon
 
-Problem Statement 1:-  
+Problem Statement:-  
 **Skill Swap Platform**
 
 **Overview:**
@@ -31,8 +31,8 @@ request others in return.
 Mockup - (https://link.excalidraw.com/l/65VNwvy7c4X/8bM86GXnnUN)
 
 **TEAM NAME** : **_WebArchitect_**
-**_Team Members:_**
 
+**_Team Members:_**
 1. Ayushman Singh
    E-mail - u24cs103@coed.svnit.ac.in
 2. Krishna Tahiliani
